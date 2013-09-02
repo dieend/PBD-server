@@ -4,8 +4,6 @@
 // Created by 	:	Samuel C.
 // Created date :	28 agustus 2013
 
-include ('dragon_ball_config.php');
-
 if (!isset($_POST['group_id']))
 {
 	$result['status'] = 'failed';
@@ -48,4 +46,3 @@ $ball_count = $statement->fetchAll(PDO::FETCH_ASSOC);
 $result['status'] = 'success';
 $result['data'] = $ball_count[0]['cid'];
 echo (json_encode($result));
-?>

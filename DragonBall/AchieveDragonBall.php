@@ -4,7 +4,6 @@
 // Created by 	:	Samuel C.
 // Created date :	31 agustus 2013
 
-include ('dragon_ball_config.php');
 
 if (!isset($_POST['ball_id']))
 {

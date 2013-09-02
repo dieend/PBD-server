@@ -4,8 +4,6 @@
 // Created by 	:	Samuel C.
 // Created date :	28 agustus 2013
 
-include ('dragon_ball_config.php');
-
 if (!isset($_POST['group_id']))
 {
 	$result['status'] = 'failed';
@@ -53,4 +51,3 @@ else
 	$result['description'] = 'database error';
 	echo (json_encode($result));
 }
-?>

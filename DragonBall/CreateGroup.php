@@ -4,7 +4,6 @@
 // Created by 	:	Samuel C.
 // Created date :	28 agustus 2013
 
-include ('dragon_ball_config.php');
 
 $dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
 
@@ -47,5 +46,3 @@ else
 	$result['description'] = 'database error';
 	echo (json_encode($result));
 }
-
-?>
