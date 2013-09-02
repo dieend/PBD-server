@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.5
+-- version 3.4.10.1deb1
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Waktu pembuatan: 31. Agustus 2013 jam 12:09
--- Versi Server: 5.5.16
--- Versi PHP: 5.3.8
+-- Generation Time: Sep 02, 2013 at 09:18 AM
+-- Server version: 5.5.31
+-- PHP Version: 5.3.10-1ubuntu3.6
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `dragon_ball`
+-- Database: `PBD_server`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `ball`
+-- Table structure for table `ball`
 --
 
 CREATE TABLE IF NOT EXISTS `ball` (
@@ -37,12 +37,25 @@ CREATE TABLE IF NOT EXISTS `ball` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `group_ball`
+-- Table structure for table `group`
+--
+
+CREATE TABLE IF NOT EXISTS `group` (
+  `id` varchar(32) NOT NULL,
+  `group_name` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `group_ball`
 --
 
 CREATE TABLE IF NOT EXISTS `group_ball` (
   `group_id` varchar(32) NOT NULL,
-  `ball_id` varchar(32) NOT NULL
+  `ball_id` varchar(32) NOT NULL,
+  KEY `ball_id` (`ball_id`),
+  KEY `group_id` (`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
