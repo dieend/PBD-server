@@ -13,18 +13,24 @@ if (!isset($_REQUEST['action']))
 
 switch ($_REQUEST['action']) {
 	case "reset":
-		include ("ResetDragonBall.php");
+		include ("ResetChest.php");
 		break;
 	case "retrieve":
-		include ("RetrieveDragonBallPosition.php");
+		include ("RetrieveChestPosition.php");
 		break;
 	case "create":
 		include ("CreateGroup.php");
 		break;
 	case "number":
-		include ("GetUnachievedDragonBallCount.php");
+		include ("GetUnachievedChestCount.php");
 		break;
 	case "acquire":
-		include ("AchieveDragonBall.php");
+		include ("AchieveChest.php");
 		break;
+	default :
+		$result['status'] = 'failed';
+		$result['description'] = 'invalid action type';
+		echo (json_encode($result));
+		break;
+		
 }
