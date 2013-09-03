@@ -70,13 +70,25 @@ CREATE TABLE IF NOT EXISTS `ball` (
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `group`
+--
+
+CREATE TABLE IF NOT EXISTS `group` (
+  `id` varchar(32) NOT NULL,
+  `group_name` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `group_ball`
 --
 
-DROP TABLE IF EXISTS `group_ball`;
 CREATE TABLE IF NOT EXISTS `group_ball` (
   `group_id` varchar(32) NOT NULL,
-  `ball_id` varchar(32) NOT NULL
+  `ball_id` varchar(32) NOT NULL,
+  KEY `ball_id` (`ball_id`),
+  KEY `group_id` (`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
