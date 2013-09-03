@@ -4,6 +4,7 @@
 // Created by 	:	Samuel C.
 // Created date :	28 agustus 2013
 
+require_once 'autoload.php';
 include ('dragon_ball_config.php');
 
 if (!isset($_GET['group_id']))
@@ -69,33 +70,12 @@ for ($i = 0; $i < $count; $i++)
 
 	$latitudeTarget = $balls[$i]['latitude'];
 	$longitudeTarget = $balls[$i]['longitude'];
-	
-	$earthRadius = 3958.75;
-	$dLat = deg2rad($latitudeTarget - $latitude);
-	$dLng = deg2rad($longitudeTarget - $longitude);
 
-	$a = sin($dLat/2) * sin($dLat/2) + 
-		cos(deg2rad($latitude)) * cos(deg2rad($latitudeTarget)) * 
-		sin($dLng/2) *sin($dLng/2);
-	$c = 2 * atan2(sqrt($a), sqrt(1-$a));
-	$mileDist = $earthRadius * $c;	
-	$meterConversion = 1609;
-	$distance = $mileDist * $meterConversion;
-
-	$a = sin(0) * sin(0) + 
-		cos(deg2rad($latitude)) * cos(deg2rad($latitudeTarget)) * 
-		sin($dLng/2) *sin($dLng/2);
-	$HDist = 2 * atan2(sqrt($a), sqrt(1-$a));
-
-	$a = sin($dLat/2) * sin($dLat/2) + 
-		cos(deg2rad($latitude)) * cos(deg2rad($latitudeTarget)) * 
-		sin(0) *sin(0);
-	$c = 2 * atan2(sqrt($a), sqrt(1-$a));
-	$mileDist = $earthRadius * $c;
-	$meterConversion = 1609;
-	$VDist = $mileDist * $meterConversion;
-		
-	$degree = rad2deg(atan2($VDist,$HDist));
+	$geotools = new \League\Geotools\Geotools();
+	$coordA   = new \League\Geotools\Coordinate\Coordinate(array($latitude, $longitude));
+	$coordB   = new \League\Geotools\Coordinate\Coordinate(array($latitudeTarget, $longitudeTarget));
+	$distance = $geotools->distance()->setFrom($coordA)->setTo($coordB)->flat();
+	$degree = $geotools->point()->setFrom($coordA)->setTo($coordB)->initialBearing();
 		
 	$balls_converted[$i]['distance'] = $distance;
 	$balls_converted[$i]['degree'] = $degree;

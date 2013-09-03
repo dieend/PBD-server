@@ -4,6 +4,7 @@
 // Created by 	:	Samuel C.
 // Created date :	31 agustus 2013
 
+require_once 'autoload.php';
 include ('dragon_ball_config.php');
 
 if (!isset($_POST['chest_id']))
@@ -49,20 +50,14 @@ if (count($ball) == 0)
 $latitudeTarget = $ball[0]['latitude'];
 $longitudeTarget = $ball[0]['longitude'];
 
-$earthRadius = 3958.75;
-$dLat = deg2rad($latitudeTarget - $latitude);
-$dLng = deg2rad($longitudeTarget - $longitude);
-$a = sin($dLat/2) * sin($dLat/2) + 
-	cos(deg2rad($latitude)) * cos(deg2rad($latitudeTarget)) * 
-	sin($dLng/2) *sin($dLng/2);
-$c = 2 * atan2(sqrt($a), sqrt(1-$a));
-$mileDist = $earthRadius * $c;
+$geotools = new \League\Geotools\Geotools();
+$coordA   = new \League\Geotools\Coordinate\Coordinate(array($latitude, $longitude));
+$coordB   = new \League\Geotools\Coordinate\Coordinate(array($latitudeTarget, $longitudeTarget));
+$distance = $geotools->distance()->setFrom($coordA)->setTo($coordB)->flat();
 
-$meterConversion = 1609;
-$dist = $mileDist * $meterConversion;
-
+echo ($distance);
 $minDist = 25;
-if ($dist < $minDist)
+if ($distance < $minDist)
 {
 	$sql = 'UPDATE `ball` SET validity="0" WHERE id="'.$ball_id.'"';
 	$exec = $dbh->exec($sql);
