@@ -23,11 +23,17 @@ $exec = $dbh->exec($sql);
 
 if ($exec)
 {
+	$sql = 'SELECT * FROM `ball_info`';
+	$statement = $dbh->prepare($sql);
+	$statement->execute();
+	$ball_info = $statement->fetchAll(PDO::FETCH_ASSOC);
+	$infoCount = count($ball_info);
 	for ($i = 0; $i < 7; $i++)
-	{	
-		$latitude = -6.887966 - (mt_rand (0, 500000) / 100000000);
-		$longitude = 107.608593 + (mt_rand (0, 300000) / 100000000);
-		$sql = 'INSERT INTO `ball` (id, latitude, longitude, validity) VALUES ("'.$ball_id[$i].'","'.$latitude.'","'.$longitude.'","1")';
+	{
+		// $latitude = -6.887966 - (mt_rand (0, 500000) / 100000000);
+		// $longitude = 107.608593 + (mt_rand (0, 300000) / 100000000);
+		$idx = mt_rand(0, $infoCount);
+		$sql = 'INSERT INTO `ball` (id, latitude, longitude, bssid, validity) VALUES ("'.$ball_id[$i].'","'.$ball_info[$idx]["latitude"].'","'.$ball_info[$idx]["longitude"].'","'.$ball_info[$idx]["bssid"].'","1")';
 		$exec = $dbh->exec($sql);
 		if (!$exec)
 		{
