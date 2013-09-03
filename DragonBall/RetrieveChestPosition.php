@@ -63,11 +63,11 @@ $statement->execute();
 $balls = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 $count = count($balls);
+$minDist = 25;
+$j = 0;
+$balls_converted = null;
 for ($i = 0; $i < $count; $i++)
 {
-	$balls_converted[$i]['id'] = $balls[$i]['id'];
-	$balls_converted[$i]['bssid'] = $balls[$i]['bssid'];
-
 	$latitudeTarget = $balls[$i]['latitude'];
 	$longitudeTarget = $balls[$i]['longitude'];
 
@@ -75,10 +75,16 @@ for ($i = 0; $i < $count; $i++)
 	$coordA   = new \League\Geotools\Coordinate\Coordinate(array($latitude, $longitude));
 	$coordB   = new \League\Geotools\Coordinate\Coordinate(array($latitudeTarget, $longitudeTarget));
 	$distance = $geotools->distance()->setFrom($coordA)->setTo($coordB)->flat();
-	$degree = $geotools->point()->setFrom($coordA)->setTo($coordB)->initialBearing();
-		
-	$balls_converted[$i]['distance'] = $distance;
-	$balls_converted[$i]['degree'] = $degree;
+	if ($distance <= $minDist)
+	{
+		$degree = $geotools->point()->setFrom($coordA)->setTo($coordB)->initialBearing();
+			
+		$balls_converted[$j]['id'] = $balls[$i]['id'];
+		$balls_converted[$j]['bssid'] = $balls[$i]['bssid'];
+		$balls_converted[$j]['distance'] = $distance;
+		$balls_converted[$j]['degree'] = $degree;
+		$j++;
+	}
 }
 
 $result['status'] = 'success';
