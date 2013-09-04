@@ -1,8 +1,9 @@
 <?php
 // File  		:	RetrieveChest.phpPosition.php
-// Input 		: 	group_id
+// Input 		: 	group_id, latitude, longitude
 // Created by 	:	Samuel C.
 // Created date :	28 agustus 2013
+// Modified date:	2 September 2013
 
 require_once 'autoload.php';
 include ('dragon_ball_config.php');

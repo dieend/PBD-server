@@ -35,22 +35,6 @@ CREATE TABLE IF NOT EXISTS `ball_info` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `ball_info` (`bssid`,`latitude`,`longitude`) VALUES
-("qwerty", -6.887902, 107.608593),
-("abcdef", -6.8888813, 107.60965407),
-("asdfgh", -6.89271202, 107.61026324),
-("zxcvbn", -6.887902, 107.608593),
-("cvbnmx", -6.8888713, 107.60965409),
-("poiuyt", -6.8888813, 107.60965417),
-("lkjhgf", -6.89271122, 107.61026224),
-("dfghjk", -6.89271322, 107.61027024),
-("123456", -6.89270122, 107.61024224),
-("098765", -6.89261122, 107.61016224),
-("1qw23e", -6.88790122, 107.60858913),
-("0oi98u", -6.887552, 107.608589),
-("azxsdc", -6.88790999, 107.608688),
-("mkjnbh", -6.887870, 107.608623);
-
 -- --------------------------------------------------------
 
 --
@@ -75,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `ball` (
 
 CREATE TABLE IF NOT EXISTS `group` (
   `id` varchar(32) NOT NULL,
-  `group_name` int(11) NOT NULL
+  `group_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------

@@ -2,10 +2,15 @@
 // File  		:	log.php
 // Created by 	:	Samuel C.
 // Created date :	2 September 2013
+// Modified date:	4 September 2013
 
 if (isset($_REQUEST['group_id']))
 {
 	$param['group_id'] = $_REQUEST['group_id'];
+}
+if (isset($_REQUEST['group_name']))
+{
+	$param['group_name'] = $_REQUEST['group_name'];
 }
 if (isset($_REQUEST['chest_id']))
 {

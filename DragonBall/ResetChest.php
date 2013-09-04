@@ -3,6 +3,7 @@
 // Input 		: 	group_id
 // Created by 	:	Samuel C.
 // Created date :	28 agustus 2013
+// Modified date:	2 September 2013
 
 include ('dragon_ball_config.php');
 
@@ -52,5 +53,6 @@ else
 	$result['status'] = 'failed';
 	$result['description'] = 'database error';
 	echo (json_encode($result));
+	return;
 }
 ?>
