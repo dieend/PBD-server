@@ -134,7 +134,7 @@ $coordA   = new \League\Geotools\Coordinate\Coordinate($sourceCoord);
 $coordB   = new \League\Geotools\Coordinate\Coordinate(array($latitudeTarget, $longitudeTarget));
 $distance = $geotools->distance()->setFrom($coordA)->setTo($coordB)->flat();
 
-$minDist = 25;
+$minDist = 50;
 if ($distance < $minDist)
 {
 	$sql = 'UPDATE `ball` SET validity="0" WHERE id="'.$ball_id.'"';

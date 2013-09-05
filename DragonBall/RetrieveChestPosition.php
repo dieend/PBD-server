@@ -77,7 +77,7 @@ else
 }
 
 $count = count($balls);
-$minDist = 25;
+$minDist = 50;
 $j = 0;
 $balls_converted = null;
 for ($i = 0; $i < $count; $i++)
