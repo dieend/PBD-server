@@ -33,6 +33,13 @@ if (!isset($_POST['bssid']))
 	echo (json_encode($result));
 	return;
 }
+if (!isset($_POST['wifi']))
+{
+	$result['status'] = 'failed';
+	$result['description'] = 'parameter `wifi` required';
+	echo (json_encode($result));
+	return;
+}
 if (!isset($_FILES['file']))
 {
 	$result['status'] = 'failed';
@@ -44,6 +51,15 @@ if (!isset($_FILES['file']))
 $group_id = $_POST['group_id'];
 $ball_id = $_POST['chest_id'];
 $bssid = $_POST['bssid'];
+$wifi = $_POST['wifi'];
+
+if (intval($wifi) < 10)
+{
+	$result['status'] = 'failed';
+	$result['description'] = 'wifi signal too low';
+	echo (json_encode($result));
+	return;
+}
 
 $dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
 
