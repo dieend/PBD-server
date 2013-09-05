@@ -6,6 +6,17 @@
 // Modified date:	2 September 2013
 
 include ('dragon_ball_config.php');
+include ('config_reader.php');
+
+$isAmazing = read_amazing();
+
+if ($isAmazing)
+{
+	$result['status'] = 'failed';
+	$result['description'] = 'cannot reset chest in amazing race';
+	echo (json_encode($result));
+	return;
+}
 
 if (!isset($_POST['group_id']))
 {

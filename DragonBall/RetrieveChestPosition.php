@@ -1,5 +1,5 @@
 <?php
-// File  		:	RetrieveChest.phpPosition.php
+// File  		:	RetrieveChestPosition.php
 // Input 		: 	group_id, latitude, longitude
 // Created by 	:	Samuel C.
 // Created date :	28 agustus 2013
@@ -7,6 +7,9 @@
 
 require_once 'autoload.php';
 include ('dragon_ball_config.php');
+include ('config_reader.php');
+
+$isAmazing = read_amazing();
 
 if (!isset($_GET['group_id']))
 {
@@ -36,32 +39,42 @@ $longitude = $_GET['longitude'];
 
 $dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
 
-$sql = 'SELECT * FROM `group_ball` WHERE group_id="'.$group_id.'"';
-$statement = $dbh->prepare($sql);
-$statement->execute();
-$group = $statement->fetchAll(PDO::FETCH_ASSOC);
-if (count($group) == 0)
+if (!$isAmazing)
 {
-	$result['status'] = 'failed';
-	$result['description'] = 'invalid group_id';
-	echo (json_encode($result));
-	return;
-}
-
-$sql = 'SELECT id,latitude,longitude,bssid FROM `ball` WHERE (';
-$count = count($group);
-for ($i = 0; $i < $count; $i++)
-{
-	$sql .= 'id="'.$group[$i]['ball_id'].'"';
-	if ($i != $count - 1)
+	$sql = 'SELECT * FROM `group_ball` WHERE group_id="'.$group_id.'"';
+	$statement = $dbh->prepare($sql);
+	$statement->execute();
+	$group = $statement->fetchAll(PDO::FETCH_ASSOC);
+	if (count($group) == 0)
 	{
-		$sql .=  ' OR ';
+		$result['status'] = 'failed';
+		$result['description'] = 'invalid group_id';
+		echo (json_encode($result));
+		return;
 	}
+
+	$sql = 'SELECT id,latitude,longitude,bssid FROM `ball` WHERE (';
+	$count = count($group);
+	for ($i = 0; $i < $count; $i++)
+	{
+		$sql .= 'id="'.$group[$i]['ball_id'].'"';
+		if ($i != $count - 1)
+		{
+			$sql .=  ' OR ';
+		}
+	}
+	$sql .= ') AND validity="1"';
+	$statement = $dbh->prepare($sql);
+	$statement->execute();
+	$balls = $statement->fetchAll(PDO::FETCH_ASSOC);
 }
-$sql .= ') AND validity="1"';
-$statement = $dbh->prepare($sql);
-$statement->execute();
-$balls = $statement->fetchAll(PDO::FETCH_ASSOC);
+else
+{
+	$sql = 'SELECT id,latitude,longitude,bssid FROM `ball` WHERE validity=2';
+	$statement = $dbh->prepare($sql);
+	$statement->execute();
+	$balls = $statement->fetchAll(PDO::FETCH_ASSOC);
+}
 
 $count = count($balls);
 $minDist = 25;

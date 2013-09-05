@@ -35,12 +35,36 @@ CREATE TABLE IF NOT EXISTS `ball_info` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `ball_info` (`bssid`, `latitude`, `longitude`) VALUES
+("qwerta",-6.887796,107.60855), 
+("qwertb",-6.887796,107.60855), 
+("qwertc",-6.887796,107.60855), 
+("qwertd",-6.887796,107.60855), 
+("qwerte",-6.887796,107.60855), 
+("qwertf",-6.887796,107.60855), 
+("qwertg",-6.887796,107.60855), 
+("qwerth",-6.887796,107.60855), 
+("qwerti",-6.887796,107.60855), 
+("qwertj",-6.887796,107.60855), 
+("qwertk",-6.887796,107.60855), 
+("qwertl",-6.887796,107.60855), 
+("qwertm",-6.887796,107.60855), 
+("qwertn",-6.887796,107.60855), 
+("qwerto",-6.887796,107.60855), 
+("qwertp",-6.887796,107.60855), 
+("qwertq",-6.887796,107.60855), 
+("qwertr",-6.887796,107.60855), 
+("qwerts",-6.887796,107.60855), 
+("qwertt",-6.887796,107.60855), 
+("qwertu",-6.887796,107.60855); 
+
 -- --------------------------------------------------------
 
 --
 -- Struktur dari tabel `ball`
 --
 
+DROP TABLE IF EXISTS `ball`;
 DROP TABLE IF EXISTS `ball`;
 CREATE TABLE IF NOT EXISTS `ball` (
   `id` varchar(32) NOT NULL,
@@ -51,15 +75,40 @@ CREATE TABLE IF NOT EXISTS `ball` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+INSERT INTO `ball` (`id`,`bssid`,`latitude`,`longitude`,`validity`) VALUES
+("1","amazing_race",0,0,2),
+("2","amazing_race",0,0,2),
+("3","amazing_race",0,0,2),
+("4","amazing_race",0,0,2),
+("5","amazing_race",0,0,2),
+("6","amazing_race",0,0,2),
+("7","amazing_race",0,0,2),
+("8","amazing_race",0,0,2),
+("9","amazing_race",0,0,2),
+("10","amazing_race",0,0,2),
+("11","amazing_race",0,0,2),
+("12","amazing_race",0,0,2),
+("13","amazing_race",0,0,2),
+("14","amazing_race",0,0,2),
+("15","amazing_race",0,0,2),
+("16","amazing_race",0,0,2),
+("17","amazing_race",0,0,2),
+("18","amazing_race",0,0,2),
+("19","amazing_race",0,0,2),
+("20","amazing_race",0,0,2),
+("21","amazing_race",0,0,2);
+
 -- --------------------------------------------------------
 
 --
 -- Struktur dari tabel `group`
 --
 
+DROP TABLE IF EXISTS `group`;
 CREATE TABLE IF NOT EXISTS `group` (
   `id` varchar(32) NOT NULL,
-  `group_name` varchar(50) NOT NULL
+  `group_name` varchar(50) NOT NULL,
+  `achieved_ball_count` int NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -68,6 +117,7 @@ CREATE TABLE IF NOT EXISTS `group` (
 -- Struktur dari tabel `group_ball`
 --
 
+DROP TABLE IF EXISTS `group_ball`;
 CREATE TABLE IF NOT EXISTS `group_ball` (
   `group_id` varchar(32) NOT NULL,
   `ball_id` varchar(32) NOT NULL,
