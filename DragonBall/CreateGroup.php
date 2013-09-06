@@ -7,13 +7,12 @@
 //					4 September 2013
 
 require_once 'autoload.php';
-include ('dragon_ball_config.php');
 
 if (!isset($_POST['group_name']))
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'parameter `group_name` required';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 
@@ -37,7 +36,7 @@ if (!$exec)
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'database error';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 
@@ -48,7 +47,7 @@ if (!$exec)
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'database error';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 
@@ -60,7 +59,7 @@ $infoCount = count($ball_info);
 $geotools = new \League\Geotools\Geotools();
 $minDist = 25;
 
-for ($i = 0; $i < 7; $i++)
+for ($i = 0; $i < BALL_PER_GROUP; $i++)
 {
 	// $isValid = false;
 	// while (!$isValid)
@@ -85,7 +84,7 @@ for ($i = 0; $i < 7; $i++)
 	{
 		$result['status'] = 'failed';
 		$result['description'] = 'database error';
-		echo (json_encode($result));
+		log_and_print (json_encode($result));
 		return;
 	}
 	// else
@@ -96,5 +95,5 @@ for ($i = 0; $i < 7; $i++)
 }
 
 $result['status'] = 'success';
-echo (json_encode($result));
+log_and_print (json_encode($result));
 ?>

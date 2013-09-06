@@ -13,7 +13,7 @@ if ($isAmazing)
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'cannot reset chest in amazing race';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 
@@ -21,7 +21,7 @@ if (!isset($_POST['group_id']))
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'parameter `group_id` required';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 
@@ -37,7 +37,7 @@ if (count($group) == 0)
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'invalid group_id';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 
@@ -56,13 +56,13 @@ $exec = $dbh->exec($sql);
 if ($dbh->errorCode() == SQLITE_OK)
 {
 	$result['status'] = 'success';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 }
 else
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'database error';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 ?>
