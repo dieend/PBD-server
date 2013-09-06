@@ -1,14 +1,22 @@
 <?php
 
 include ('dragon_ball_config.php');
+$response_data = '';
+function log_and_print($data) {
+	if (LOG_RESPONSE) {
+		$response_data .= $data;
+	}
+	echo $data;
+}
 
 if (!isset($_REQUEST['action']))
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'parameter `action` required';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
+
 // do logging here, from where, requestnya apa
 switch ($_REQUEST['action']) {
 	case "reset":
@@ -29,7 +37,7 @@ switch ($_REQUEST['action']) {
 	default :
 		$result['status'] = 'failed';
 		$result['description'] = 'invalid action type';
-		echo (json_encode($result));
+		log_and_print (json_encode($result));
 		return;
 }
 include ('log.php');

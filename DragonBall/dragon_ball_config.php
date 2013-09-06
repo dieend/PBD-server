@@ -6,12 +6,13 @@ $hostname = 'localhost';
 $username = 'root';
 
 /*** mysql password ***/
-$password = '';
+$password = 'systemoutprintln';
 
 /*** mysql database ***/
-$dbname = '';
+$dbname = 'PBD_server';
 
 
 /*** AMAZING MODE ***/
 # Mode Setting (0 = Demo, 1 = Amazing Race)
 const AMAZING_MODE = 0;
+const LOG_RESPONSE = 0;
