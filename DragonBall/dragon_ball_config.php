@@ -3,7 +3,7 @@
 $hostname = 'localhost';
 
 /*** mysql username ***/
-$username = 'root';
+$username = '';
 
 /*** mysql password ***/
 $password = '';
@@ -19,3 +19,4 @@ const LOG_RESPONSE = 0;
 const BALL_PER_GROUP = 7;
 const VALID_MINIMUM_ACHIEVE_DISTANCE = 50;
 const VALID_VIEWED_BALL_DISTANCE = 1000;
+const BALL_PER_GROUP = 7;
