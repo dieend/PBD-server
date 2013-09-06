@@ -25,9 +25,6 @@ if (isset($_REQUEST['longitude']))
 	$param['longitude'] = $_REQUEST['longitude'];
 }
 
-$ip_remote = $_SERVER['REMOTE_ADDR'];
-isset($_SERVER['HTTP_X_FORWARDED_FOR']) && $ip_forwarded = $_SERVER['HTTP_X_FORWARDED_FOR'];
-
 $dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
 
 // LOG ACTION
@@ -40,22 +37,29 @@ if (isset($param)) {
 	$values .= ',"'.addslashes(json_encode($param)).'"';
 } else {
 	$table_name .= ", `param`";
-	$values .= ',"'."NULL".'"';
+	$values .= ',NULL';
 }
 
 // LOG RESPONSE
 if (isset($response_data)) {
 	$table_name .= ", `response`";
 	$values .= ',"'.addslashes($response_data).'"';
+} else {
+	$table_name .= ", `response`";
+	$values .= ',NULL';
 }
 
-if (isset($param))
-{
-	$sql = 'INSERT INTO `log` (`action`,`param`, `response`) VALUES ("'.$_REQUEST['action'].'","'.addslashes(json_encode($param)).'")';
+// LOG IP_ADDRESS
+$table_name .= ", `ip_address`";
+$values .= ',"'.$_SERVER['REMOTE_ADDR'].'"';
+if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+	$table_name .= ", `ip_address_forwarded`";
+	$values .= ',"'.$_SERVER['HTTP_X_FORWARDED_FOR'].'"';
+} else {
+	$table_name .= ", `ip_address_forwarded`";
+	$values .= ',NULL';
 }
-else
-{
-	$sql = 'INSERT INTO `log` (`action`,`param`) VALUES ("'.$_REQUEST['action'].'",NULL)';
-}
+
+$sql = 'INSERT INTO `log` ('.$table_name.') VALUES ('.$values.')';
 $exec = $dbh->exec($sql);
 ?>

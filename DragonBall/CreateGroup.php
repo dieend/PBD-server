@@ -13,7 +13,7 @@ if (!isset($_POST['group_name']))
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'parameter `group_name` required';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 
@@ -37,7 +37,7 @@ if (!$exec)
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'database error';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 
@@ -48,7 +48,7 @@ if (!$exec)
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'database error';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 
@@ -85,7 +85,7 @@ for ($i = 0; $i < 7; $i++)
 	{
 		$result['status'] = 'failed';
 		$result['description'] = 'database error';
-		echo (json_encode($result));
+		log_and_print (json_encode($result));
 		return;
 	}
 	// else
@@ -96,5 +96,5 @@ for ($i = 0; $i < 7; $i++)
 }
 
 $result['status'] = 'success';
-echo (json_encode($result));
+log_and_print (json_encode($result));
 ?>
