@@ -6,9 +6,8 @@
 // Modified date:	2 September 2013
 
 include ('dragon_ball_config.php');
-include ('config_reader.php');
 
-$isAmazing = read_amazing();
+$isAmazing = AMAZING_MODE;
 
 if ($isAmazing)
 {

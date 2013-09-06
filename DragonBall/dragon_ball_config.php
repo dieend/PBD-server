@@ -9,6 +9,9 @@ $username = 'root';
 $password = '';
 
 /*** mysql database ***/
-$dbname = 'dragon_ball';
+$dbname = '';
 
-?>
+
+/*** AMAZING MODE ***/
+# Mode Setting (0 = Demo, 1 = Amazing Race)
+const AMAZING_MODE = 0;
