@@ -6,7 +6,6 @@
 // Modified date:	2 September 2013
 
 require_once 'autoload.php';
-include ('dragon_ball_config.php');
 
 $isAmazing = AMAZING_MODE;
 

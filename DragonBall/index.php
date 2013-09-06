@@ -1,6 +1,6 @@
 <?php
 
-include ('dragon_ball_config.php');
+include_once ('dragon_ball_config.php');
 $response_data = '';
 function log_and_print($data) {
 	if (LOG_RESPONSE) {
@@ -33,6 +33,9 @@ switch ($_REQUEST['action']) {
 		break;
 	case "acquire":
 		include ("AchieveChest.php");
+		break;
+	case "check":
+		include ("CheckChest.php");
 		break;
 	default :
 		$result['status'] = 'failed';
