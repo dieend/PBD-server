@@ -7,7 +7,6 @@
 //					4 September 2013
 
 require_once 'autoload.php';
-include ('dragon_ball_config.php');
 
 if (!isset($_POST['group_name']))
 {
@@ -60,7 +59,7 @@ $infoCount = count($ball_info);
 $geotools = new \League\Geotools\Geotools();
 $minDist = 25;
 
-for ($i = 0; $i < 7; $i++)
+for ($i = 0; $i < BALL_PER_GROUP; $i++)
 {
 	// $isValid = false;
 	// while (!$isValid)

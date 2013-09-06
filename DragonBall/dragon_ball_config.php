@@ -16,3 +16,4 @@ $dbname = 'PBD_server';
 # Mode Setting (0 = Demo, 1 = Amazing Race)
 const AMAZING_MODE = 0;
 const LOG_RESPONSE = 0;
+const BALL_PER_GROUP = 7;

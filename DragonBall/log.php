@@ -41,7 +41,7 @@ if (isset($param)) {
 }
 
 // LOG RESPONSE
-if (isset($response_data)) {
+if (isset($response_data) && $response_data!=='') {
 	$table_name .= ", `response`";
 	$values .= ',"'.addslashes($response_data).'"';
 } else {
