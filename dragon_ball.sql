@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `ball` (
   `latitude` double NOT NULL,
   `longitude` double NOT NULL,
   `validity` tinyint(1) NOT NULL,
+  `wifi_signal` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -74,6 +75,36 @@ INSERT INTO `ball` (`id`, `bssid`, `latitude`, `longitude`, `validity`) VALUES
 ('da9ff6ac031efdcd8d35821e77b48997', 'qwertj', -6.887796, 107.60855, 1),
 ('db30307ddafd40a22864fdebf39ba3a3', 'qwerti', -6.887796, 107.60855, 1);
 
+INSERT INTO `ball` (`id`, `bssid`, `latitude`, `longitude`, `validity`, `wifi_signal`) VALUES
+('1', 'amazing_race', 0, 0, 2, 0),
+('10', 'amazing_race', 0, 0, 2, 0),
+('11', 'amazing_race', 0, 0, 2, 0),
+('12', 'amazing_race', 0, 0, 2, 0),
+('13', 'amazing_race', 0, 0, 2, 0),
+('14', 'amazing_race', 0, 0, 2, 0),
+('15', 'amazing_race', 0, 0, 2, 0),
+('16', 'amazing_race', 0, 0, 2, 0),
+('17', 'amazing_race', 0, 0, 2, 0),
+('18', 'amazing_race', 0, 0, 2, 0),
+('19', 'amazing_race', 0, 0, 2, 0),
+('2', 'amazing_race', 0, 0, 2, 0),
+('20', 'amazing_race', 0, 0, 2, 0),
+('21', 'amazing_race', 39.737755555556, 104.98928611111, 0, 0),
+('296c91a3fe51ad54413124a99657144b', 'qwertb', -6.887796, 107.60855, 1, 0),
+('2f6dbc1b5be83963f671a6220a2c57ab', 'qwertj', -6.887796, 107.60855, 1, 0),
+('3', 'amazing_race', 0, 0, 2, 0),
+('4', 'amazing_race', 0, 0, 2, 0),
+('5', 'amazing_race', 0, 0, 2, 0),
+('6', 'amazing_race', 0, 0, 2, 0),
+('7', 'amazing_race', 0, 0, 2, 0),
+('8', 'amazing_race', 0, 0, 2, 0),
+('9', 'amazing_race', 0, 0, 2, 0),
+('994f5f08564fe2935918936661535e69', 'qwertu', -6.887796, 107.60855, 1, 0),
+('ae9ecddbd4dc36e9cd6101917031d3eb', 'qwertl', -6.887796, 107.60855, 1, 0),
+('f08b939dccf3bf386dcb16f48b38a2f2', 'qwertn', -6.887796, 107.60855, 1, 0),
+('f1660e6da6f6d46e17515ef0230a47ad', 'qwerte', -6.887796, 107.60855, 1, 0),
+('f9e22bda3a98225286a227c35978c863', 'qwertp', -6.887796, 107.60855, 1, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -85,6 +116,7 @@ CREATE TABLE IF NOT EXISTS `ball_info` (
   `bssid` varchar(32) NOT NULL,
   `latitude` double NOT NULL,
   `longitude` double NOT NULL,
+  `wifi_signal` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
 
@@ -92,28 +124,28 @@ CREATE TABLE IF NOT EXISTS `ball_info` (
 -- Dumping data for table `ball_info`
 --
 
-INSERT INTO `ball_info` (`id`, `bssid`, `latitude`, `longitude`) VALUES
-(1, 'qwerta', -6.887796, 107.60855),
-(2, 'qwertb', -6.887796, 107.60855),
-(3, 'qwertc', -6.887796, 107.60855),
-(4, 'qwertd', -6.887796, 107.60855),
-(5, 'qwerte', -6.887796, 107.60855),
-(6, 'qwertf', -6.887796, 107.60855),
-(7, 'qwertg', -6.887796, 107.60855),
-(8, 'qwerth', -6.887796, 107.60855),
-(9, 'qwerti', -6.887796, 107.60855),
-(10, 'qwertj', -6.887796, 107.60855),
-(11, 'qwertk', -6.887796, 107.60855),
-(12, 'qwertl', -6.887796, 107.60855),
-(13, 'qwertm', -6.887796, 107.60855),
-(14, 'qwertn', -6.887796, 107.60855),
-(15, 'qwerto', -6.887796, 107.60855),
-(16, 'qwertp', -6.887796, 107.60855),
-(17, 'qwertq', -6.887796, 107.60855),
-(18, 'qwertr', -6.887796, 107.60855),
-(19, 'qwerts', -6.887796, 107.60855),
-(20, 'qwertt', -6.887796, 107.60855),
-(21, 'qwertu', -6.887796, 107.60855);
+INSERT INTO `ball_info` (`id`, `bssid`, `latitude`, `longitude`,`wifi_signal`) VALUES
+(1, 'qwerta', -6.887796, 107.60855, 0),
+(2, 'qwertb', -6.887796, 107.60855, 0),
+(3, 'qwertc', -6.887796, 107.60855, 0),
+(4, 'qwertd', -6.887796, 107.60855, 0),
+(5, 'qwerte', -6.887796, 107.60855, 0),
+(6, 'qwertf', -6.887796, 107.60855, 0),
+(7, 'qwertg', -6.887796, 107.60855, 0),
+(8, 'qwerth', -6.887796, 107.60855, 0),
+(9, 'qwerti', -6.887796, 107.60855, 0),
+(10, 'qwertj', -6.887796, 107.60855, 0),
+(11, 'qwertk', -6.887796, 107.60855, 0),
+(12, 'qwertl', -6.887796, 107.60855, 0),
+(13, 'qwertm', -6.887796, 107.60855, 0),
+(14, 'qwertn', -6.887796, 107.60855, 0),
+(15, 'qwerto', -6.887796, 107.60855, 0),
+(16, 'qwertp', -6.887796, 107.60855, 0),
+(17, 'qwertq', -6.887796, 107.60855, 0),
+(18, 'qwertr', -6.887796, 107.60855, 0),
+(19, 'qwerts', -6.887796, 107.60855, 0),
+(20, 'qwertt', -6.887796, 107.60855, 0),
+(21, 'qwertu', -6.887796, 107.60855, 0);
 
 -- --------------------------------------------------------
 
