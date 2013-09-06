@@ -76,7 +76,7 @@ else
 }
 
 $count = count($balls);
-$minDist = 50;
+$minDist = VALID_VIEWED_BALL_DISTANCE;
 $j = 0;
 $balls_converted = null;
 for ($i = 0; $i < $count; $i++)
