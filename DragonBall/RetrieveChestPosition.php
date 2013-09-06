@@ -7,29 +7,28 @@
 
 require_once 'autoload.php';
 include ('dragon_ball_config.php');
-include ('config_reader.php');
 
-$isAmazing = read_amazing();
+$isAmazing = AMAZING_MODE;
 
 if (!isset($_GET['group_id']))
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'parameter `group_id` required';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 if (!isset($_GET['latitude']))
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'parameter `latitude` required';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 if (!isset($_GET['longitude']))
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'parameter `longitude` required';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 
@@ -49,7 +48,7 @@ if (!$isAmazing)
 	{
 		$result['status'] = 'failed';
 		$result['description'] = 'invalid group_id';
-		echo (json_encode($result));
+		log_and_print (json_encode($result));
 		return;
 	}
 
@@ -102,5 +101,5 @@ for ($i = 0; $i < $count; $i++)
 
 $result['status'] = 'success';
 $result['data'] = $balls_converted;
-echo (json_encode($result));
+log_and_print (json_encode($result));
 ?>

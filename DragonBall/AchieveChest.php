@@ -8,43 +8,42 @@
 
 require_once 'autoload.php';
 include ('dragon_ball_config.php');
-include ('config_reader.php');
 
-$isAmazing = read_amazing();
+$isAmazing = AMAZING_MODE;
 
 if (!isset($_POST['group_id']))
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'parameter `group_id` required';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 if (!isset($_POST['chest_id']))
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'parameter `chest_id` required';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 if (!isset($_POST['bssid']))
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'parameter `bssid` required';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 if (!isset($_POST['wifi']))
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'parameter `wifi` required';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 if (!isset($_FILES['file']))
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'parameter `file` required';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 
@@ -57,7 +56,7 @@ if (intval($wifi) < 10)
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'wifi signal too low';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 
@@ -72,7 +71,7 @@ if (count($ball) == 0)
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'invalid `chest_id` or `bssid`';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 else if ($isAmazing)
@@ -81,7 +80,7 @@ else if ($isAmazing)
 	{
 		$result['status'] = 'failed';
 		$result['description'] = 'invalid amazing race `chest_id`';
-		echo (json_encode($result));
+		log_and_print (json_encode($result));
 		return;
 	}
 }
@@ -96,7 +95,7 @@ if (!isset($exif['GPSLatitude']) || !isset($exif['GPSLongitude']))
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'no geotag data found';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 $degree = explode('/',$exif['GPSLatitude'][0]);
@@ -150,7 +149,7 @@ if ($distance < $minDist)
 			if ($exec)
 			{
 				$result['status'] = 'success';
-				echo (json_encode($result));
+				log_and_print (json_encode($result));
 			}
 			else
 			{
@@ -159,21 +158,21 @@ if ($distance < $minDist)
 	
 				$result['status'] = 'failed';
 				$result['description'] = 'invalid `group_id`';
-				echo (json_encode($result));
+				log_and_print (json_encode($result));
 				return;
 			}
 		}
 		else
 		{
 			$result['status'] = 'success';
-			echo (json_encode($result));
+			log_and_print (json_encode($result));
 		}
 	}
 	else
 	{
 		$result['status'] = 'failed';
 		$result['description'] = 'chest already acquired';
-		echo (json_encode($result));
+		log_and_print (json_encode($result));
 		return;
 	}
 }
@@ -181,7 +180,7 @@ else
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'chest not in a valid range';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 ?>

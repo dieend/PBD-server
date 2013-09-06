@@ -5,9 +5,8 @@
 // Created date :	28 agustus 2013
 
 include ('dragon_ball_config.php');
-include ('config_reader.php');
 
-$isAmazing = read_amazing();
+$isAmazing = AMAZING_MODE;
 
 if (!isset($_GET['group_id']))
 {
