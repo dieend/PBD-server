@@ -60,24 +60,24 @@ $minDist = 25;
 
 for ($i = 0; $i < BALL_PER_GROUP; $i++)
 {
-	// $isValid = false;
-	// while (!$isValid)
-	// {
-		// $isValid = true;
-		$idx = mt_rand(0, $infoCount);
-		// for ($j = 0; $j < $i && $isValid; $j++)
-		// {
-			// $coordA   = new \League\Geotools\Coordinate\Coordinate(array($ball_info[$idx]["latitude"], $ball_info[$idx]["longitude"]));
-			// $coorB = $ball_coord[$j];
-			// $distance = $geotools->distance()->setFrom($coordA)->setTo($coordB)->flat();
-			// if ($distance < $minDist)
-			// {
-				// isValid = false;
-			// }			
-		// }
-	// }
+	$isValid = false;
+	while (!$isValid)
+	{
+		$isValid = true;
+		$idx = mt_rand(0, $infoCount - 1);
+		for ($j = 0; $j < $i && $isValid; $j++)
+		{
+			$coordA   = new \League\Geotools\Coordinate\Coordinate(array($ball_info[$idx]["latitude"], $ball_info[$idx]["longitude"]));
+			$coordB = $ball_coord[$j];
+			$distance = $geotools->distance()->setFrom($coordA)->setTo($coordB)->flat();
+			if ($distance < $minDist)
+			{
+				$isValid = false;
+			}			
+		}
+	}
 	
-	$sql = 'INSERT INTO `ball` (id, latitude, longitude, bssid, validity) VALUES ("'.$ball_id[$i].'","'.$ball_info[$idx]["latitude"].'","'.$ball_info[$idx]["longitude"].'","'.$ball_info[$idx]["bssid"].'","1")';
+	$sql = 'INSERT INTO `ball` (id, latitude, longitude, bssid, wifi_signal, validity) VALUES ("'.$ball_id[$i].'","'.$ball_info[$idx]["latitude"].'","'.$ball_info[$idx]["longitude"].'","'.$ball_info[$idx]["bssid"].'","'.$ball_info[$idx]["wifi_signal"].'","1")';
 	$exec = $dbh->exec($sql);
 	if (!$exec)
 	{
@@ -86,11 +86,11 @@ for ($i = 0; $i < BALL_PER_GROUP; $i++)
 		log_and_print (json_encode($result));
 		return;
 	}
-	// else
-	// {
-		// $coord = new \League\Geotools\Coordinate\Coordinate(array($ball_info[$idx]["latitude"], $ball_info[$idx]["longitude"]));
-		// $ball_coord[$i] = $coord;
-	// }
+	else
+	{
+		$coord = new \League\Geotools\Coordinate\Coordinate(array($ball_info[$idx]["latitude"], $ball_info[$idx]["longitude"]));
+		$ball_coord[$i] = $coord;
+	}
 }
 
 $result['status'] = 'success';
