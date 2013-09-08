@@ -84,14 +84,14 @@ else if ($isAmazing)
 }
 
 // Check Wifi Signal
-if ($wifi < $ball[0]['wifi_signal'] - 5)
+if ($wifi < $ball[0]['wifi_signal'] - WIFI_ERROR)
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'wifi signal too weak';
 	echo (json_encode($result));
 	return;
 }
-else if ($wifi > $ball[0]['wifi_signal'] + 5)
+else if ($wifi > $ball[0]['wifi_signal'] + WIFI_ERROR)
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'wifi signal too strong';
