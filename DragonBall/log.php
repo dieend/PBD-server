@@ -61,5 +61,6 @@ if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 }
 
 $sql = 'INSERT INTO `log` ('.$table_name.') VALUES ('.$values.')';
+echo $sql;
 $exec = $dbh->exec($sql);
 ?>
