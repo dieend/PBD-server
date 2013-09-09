@@ -59,7 +59,22 @@ $infoCount = count($ball_info);
 $geotools = new \League\Geotools\Geotools();
 $minDist = 25;
 
-for ($i = 0; $i < BALL_PER_GROUP; $i++)
+	$sql = 'INSERT INTO `ball` (id, latitude, longitude, bssid, wifi_signal, validity) VALUES ("'.$ball_id[0].'","'.$ball_info[DEFAULT_BALL_IDX]["latitude"].'","'.$ball_info[DEFAULT_BALL_IDX]["longitude"].'","'.$ball_info[DEFAULT_BALL_IDX]["bssid"].'","'.$ball_info[DEFAULT_BALL_IDX]["wifi_signal"].'","1")';
+	$exec = $dbh->exec($sql);
+	if (!$exec)
+	{
+		$result['status'] = 'failed';
+		$result['description'] = 'database error';
+		log_and_print (json_encode($result));
+		return;
+	}
+	else
+	{
+		$coord = new \League\Geotools\Coordinate\Coordinate(array($ball_info[DEFAULT_BALL_IDX]["latitude"], $ball_info[DEFAULT_BALL_IDX]["longitude"]));
+		$ball_coord[0] = $coord;
+	}
+
+for ($i = 1; $i < BALL_PER_GROUP; $i++)
 {
 	$isValid = false;
 	while (!$isValid)
@@ -77,7 +92,6 @@ for ($i = 0; $i < BALL_PER_GROUP; $i++)
 			}
 		}
 	}
-	
 	$sql = 'INSERT INTO `ball` (id, latitude, longitude, bssid, wifi_signal, validity) VALUES ("'.$ball_id[$i].'","'.$ball_info[$idx]["latitude"].'","'.$ball_info[$idx]["longitude"].'","'.$ball_info[$idx]["bssid"].'","'.$ball_info[$idx]["wifi_signal"].'","1")';
 	$exec = $dbh->exec($sql);
 	if (!$exec)
