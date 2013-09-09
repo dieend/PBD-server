@@ -3,8 +3,9 @@
 include ('dragon_ball_config.php');
 $response_data = '';
 function log_and_print($data) {
+	global $response_data;
 	if (LOG_RESPONSE) {
-		global $response_data .= $data;
+		$response_data .= $data;
 	}
 	echo $data;
 }
