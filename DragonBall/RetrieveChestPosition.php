@@ -52,7 +52,7 @@ if (!$isAmazing)
 		return;
 	}
 
-	$sql = 'SELECT id,latitude,longitude FROM `ball` WHERE (';
+	$sql = 'SELECT id,latitude,longitude,bssid FROM `ball` WHERE (';
 	$count = count($group);
 	for ($i = 0; $i < $count; $i++)
 	{
@@ -69,7 +69,7 @@ if (!$isAmazing)
 }
 else
 {
-	$sql = 'SELECT id,latitude,longitude FROM `ball` WHERE validity=2';
+	$sql = 'SELECT id,latitude,longitude,bssid FROM `ball` WHERE validity=2';
 	$statement = $dbh->prepare($sql);
 	$statement->execute();
 	$balls = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -93,6 +93,7 @@ for ($i = 0; $i < $count; $i++)
 		$degree = $geotools->point()->setFrom($coordA)->setTo($coordB)->initialBearing();
 			
 		$balls_converted[$j]['id'] = $balls[$i]['id'];
+		$balls_converted[$j]['bssid'] = $balls[$i]['bssid'];
 		$balls_converted[$j]['distance'] = $distance;
 		$balls_converted[$j]['degree'] = $degree;
 		$j++;

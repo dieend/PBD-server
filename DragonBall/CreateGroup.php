@@ -22,9 +22,13 @@ $dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
 
 $date = date(DATE_RFC822);
 $group_id = md5($date);
-for ($i = 0; $i < BALL_PER_GROUP; $i++) {
-	$ball_id[$i] = md5($date.chr($i+64));
-}
+$ball_id[0] = md5($date.'q');
+$ball_id[1] = md5($date.'w');
+$ball_id[2] = md5($date.'e');
+$ball_id[3] = md5($date.'r');
+$ball_id[4] = md5($date.'t');
+$ball_id[5] = md5($date.'y');
+$ball_id[6] = md5($date.'u');
 
 $sql = 'INSERT INTO `group` (id, group_name) VALUES ("'.$group_id.'","'.$group_name.'")';
 $exec = $dbh->exec($sql);
@@ -35,11 +39,8 @@ if (!$exec)
 	log_and_print (json_encode($result));
 	return;
 }
-$sql = 'INSERT INTO `group_ball` (group_id, ball_id) VALUES ';
-for ($i=0; $i<BALL_PER_GROUP; $i++) {
-	if ($i>0) $sql .= ',';
-	$sql .= '("'.$group_id.'","'.$ball_id[$i].'")';
-}
+
+$sql = 'INSERT INTO `group_ball` (group_id, ball_id) VALUES ("'.$group_id.'","'.$ball_id[0].'"),("'.$group_id.'","'.$ball_id[1].'"),("'.$group_id.'","'.$ball_id[2].'"),("'.$group_id.'","'.$ball_id[3].'"),("'.$group_id.'","'.$ball_id[4].'"),("'.$group_id.'","'.$ball_id[5].'"),("'.$group_id.'","'.$ball_id[6].'")';
 $exec = $dbh->exec($sql);
 
 if (!$exec)
@@ -73,7 +74,7 @@ for ($i = 0; $i < BALL_PER_GROUP; $i++)
 			if ($distance < $minDist)
 			{
 				$isValid = false;
-			}			
+			}
 		}
 	}
 	
@@ -94,4 +95,6 @@ for ($i = 0; $i < BALL_PER_GROUP; $i++)
 }
 
 $result['status'] = 'success';
+$result['group_id'] = $group_id;
 log_and_print (json_encode($result));
+?>
