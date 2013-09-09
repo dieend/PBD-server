@@ -76,10 +76,22 @@ if (count($ball) == 0)
 }
 else if ($isAmazing)
 {
-	if ($ball[0]['validity'] != 2)
+	if ($ball[0]['validity'] < 2)
 	{
 		$result['status'] = 'failed';
 		$result['description'] = 'invalid amazing race `chest_id`';
+		log_and_print (json_encode($result));
+		return;
+	}
+	
+	$sql = 'SELECT * FROM `race_ball_achiever` WHERE ball_id="'.$ball_id.'" AND group_id="'.$group_id.'"';
+	$statement = $dbh->prepare($sql);
+	$statement->execute();
+	$achieved_ball = $statement->fetchAll(PDO::FETCH_ASSOC);
+	if (count($achieved_ball) != 0)
+	{
+		$result['status'] = 'failed';
+		$result['description'] = 'chest already acquired';
 		log_and_print (json_encode($result));
 		return;
 	}
@@ -153,26 +165,54 @@ $distance = $geotools->distance()->setFrom($coordA)->setTo($coordB)->flat();
 $minDist = VALID_MINIMUM_ACHIEVE_DISTANCE;
 if ($distance < $minDist)
 {
-	$sql = 'UPDATE `ball` SET validity="0" WHERE id="'.$ball_id.'"';
-	$exec = $dbh->exec($sql);
-
-	if ($exec)
+	if ($isAmazing)
 	{
-		if ($isAmazing)
+		if ($ball[0]['validity'] > 2)
+		{
+			$validity = $ball[0]['validity'] - 1;
+		}
+		else
+		{
+			$validity = 0;
+		}
+		
+		$sql = 'UPDATE `ball` SET validity='.$validity.' WHERE id="'.$ball_id.'"';
+		$exec = $dbh->exec($sql);
+
+		if ($exec)
 		{
 			$sql = 'UPDATE `group` SET `achieved_ball_count` = `achieved_ball_count` + 1 WHERE id="'.$group_id.'"';
 			$exec = $dbh->exec($sql);
 			
 			if ($exec)
 			{
-				$result['status'] = 'success';
-				log_and_print (json_encode($result));
+				$sql = 'INSERT INTO `race_ball_achiever` (`ball_id`,`group_id`) VALUES ("'.$ball_id.'","'.$group_id.'")';
+				$exec = $dbh->exec($sql);
+
+				if ($exec)
+				{
+					$result['status'] = 'success';
+					log_and_print (json_encode($result));
+				}
+				else
+				{
+					$sql = 'UPDATE `group` SET `achieved_ball_count` = `achieved_ball_count` - 1 WHERE id="'.$group_id.'"';
+					$exec = $dbh->exec($sql);
+				
+					$sql = 'UPDATE `ball` SET validity="'.$ball[0]['validity'].'" WHERE id="'.$ball_id.'"';
+					$dbh->exec($sql);
+
+					$result['status'] = 'failed';
+					$result['description'] = 'database error`';
+					log_and_print (json_encode($result));
+					return;
+				}
 			}
 			else
 			{
 				$sql = 'UPDATE `ball` SET validity="2" WHERE id="'.$ball_id.'"';
 				$dbh->exec($sql);
-	
+
 				$result['status'] = 'failed';
 				$result['description'] = 'invalid `group_id`';
 				log_and_print (json_encode($result));
@@ -181,16 +221,29 @@ if ($distance < $minDist)
 		}
 		else
 		{
-			$result['status'] = 'success';
+			$result['status'] = 'failed';
+			$result['description'] = 'no chest left on this place';
 			log_and_print (json_encode($result));
+			return;
 		}
 	}
 	else
 	{
-		$result['status'] = 'failed';
-		$result['description'] = 'chest already acquired';
-		log_and_print (json_encode($result));
-		return;
+		$sql = 'UPDATE `ball` SET validity="0" WHERE id="'.$ball_id.'"';
+		$exec = $dbh->exec($sql);
+
+		if ($exec)
+		{
+			$result['status'] = 'success';
+			log_and_print (json_encode($result));
+		}
+		else
+		{
+			$result['status'] = 'failed';
+			$result['description'] = 'chest already acquired';
+			log_and_print (json_encode($result));
+			return;
+		}
 	}
 }
 else
