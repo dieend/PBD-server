@@ -10,7 +10,7 @@ if (!isset($_GET['group_id']))
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'parameter `group_id` required';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 
@@ -28,7 +28,7 @@ if (!$isAmazing)
 	{
 		$result['status'] = 'failed';
 		$result['description'] = 'invalid group_id';
-		echo (json_encode($result));
+		log_and_print (json_encode($result));
 		return;
 	}
 
@@ -58,5 +58,5 @@ else
 $result['status'] = 'success';
 if (isset($ball_count[0]))
 $result['data'] = $ball_count[0]['cid'];
-echo (json_encode($result));
+log_and_print (json_encode($result));
 ?>

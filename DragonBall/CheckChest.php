@@ -14,35 +14,35 @@ if (!isset($_POST['chest_id']))
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'parameter `chest_id` required';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 if (!isset($_POST['bssid']))
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'parameter `bssid` required';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 if (!isset($_POST['wifi']))
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'parameter `wifi` required';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 if (!isset($_POST['latitude']))
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'parameter `latitude` required';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 if (!isset($_POST['longitude']))
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'parameter `longitude` required';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 
@@ -63,14 +63,14 @@ if (count($ball) == 0)
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'invalid `chest_id`';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 else if ($ball[0]['bssid'] != $bssid)
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'invalid `bssid`';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 else if ($isAmazing)
@@ -79,7 +79,7 @@ else if ($isAmazing)
 	{
 		$result['status'] = 'failed';
 		$result['description'] = 'invalid amazing race `chest_id`';
-		echo (json_encode($result));
+		log_and_print (json_encode($result));
 		return;
 	}
 }
@@ -88,14 +88,14 @@ if ($wifi < $ball[0]['wifi_signal'] - WIFI_ERROR)
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'wifi signal too weak';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 else if ($wifi > $ball[0]['wifi_signal'] + WIFI_ERROR)
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'wifi signal too strong';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 
@@ -112,13 +112,13 @@ $minDist = VALID_MINIMUM_ACHIEVE_DISTANCE;
 if ($distance < $minDist)
 {
 	$result['status'] = 'success';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 }
 else
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'chest not in a valid range';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 ?>
