@@ -47,8 +47,8 @@ if (!isset($_FILES['file']))
 	return;
 }
 
-$group_id = $_POST['group_id'];
-$ball_id = $_POST['chest_id'];
+$group_id = addslashes($_POST['group_id']);
+$ball_id = addslashes($_POST['chest_id']);
 $bssid = $_POST['bssid'];
 $wifi = $_POST['wifi'];
 

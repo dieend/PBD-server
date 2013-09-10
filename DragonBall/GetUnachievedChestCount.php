@@ -14,7 +14,7 @@ if (!isset($_GET['group_id']))
 	return;
 }
 
-$group_id = $_GET['group_id'];
+$group_id = addslashes($_GET['group_id']);
 
 $dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
 

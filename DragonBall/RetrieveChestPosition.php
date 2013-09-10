@@ -32,7 +32,7 @@ if (!isset($_GET['longitude']))
 	return;
 }
 
-$group_id = $_GET['group_id'];
+$group_id = addslashes($_GET['group_id']);
 $latitude = $_GET['latitude'];
 $longitude = $_GET['longitude'];
 

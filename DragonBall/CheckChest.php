@@ -46,7 +46,7 @@ if (!isset($_POST['longitude']))
 	return;
 }
 
-$ball_id = $_POST['chest_id'];
+$ball_id = addslashes($_POST['chest_id']);
 $bssid = $_POST['bssid'];
 $wifi = $_POST['wifi'];
 $latitude = $_POST['latitude'];

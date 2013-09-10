@@ -25,7 +25,7 @@ if (!isset($_POST['group_id']))
 	return;
 }
 
-$group_id = $_POST['group_id'];
+$group_id = addslashes($_POST['group_id']);
 
 $dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
 
