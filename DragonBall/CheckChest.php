@@ -83,22 +83,6 @@ else if ($isAmazing)
 		return;
 	}
 }
-
-if ($wifi < $ball[0]['wifi_signal'] - WIFI_ERROR)
-{
-	$result['status'] = 'failed';
-	$result['description'] = 'wifi signal too weak';
-	log_and_print (json_encode($result));
-	return;
-}
-else if ($wifi > $ball[0]['wifi_signal'] + WIFI_ERROR)
-{
-	$result['status'] = 'failed';
-	$result['description'] = 'wifi signal too strong';
-	log_and_print (json_encode($result));
-	return;
-}
-
 $latitudeTarget = $ball[0]['latitude'];
 $longitudeTarget = $ball[0]['longitude'];
 
@@ -109,16 +93,31 @@ $coordB   = new \League\Geotools\Coordinate\Coordinate(array($latitudeTarget, $l
 $distance = $geotools->distance()->setFrom($coordA)->setTo($coordB)->flat();
 
 $minDist = VALID_MINIMUM_ACHIEVE_DISTANCE;
-if ($distance < $minDist)
-{
-	$result['status'] = 'success';
-	log_and_print (json_encode($result));
-}
-else
+
+if ($distance >= $minDist)
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'chest not in a valid range';
-	log_and_print (json_encode($result));
-	return;
 }
-?>
+if ($wifi < $ball[0]['wifi_signal'] - WIFI_ERROR)
+{
+	$result['status'] = 'failed';
+	if (!isset($result['description']))
+		$result['description'] = 'wifi signal too weak';
+	else
+		$result['description'] .= ' + wifi signal too weak';
+}
+else if ($wifi > $ball[0]['wifi_signal'] + WIFI_ERROR)
+{
+	$result['status'] = 'failed';
+	if (!isset($result['description']))
+		$result['description'] = 'wifi signal too strong';
+	else
+		$result['description'] .= ' + wifi signal too strong';
+}
+if ($result['status'] === 'failed')
+{
+	$result['status'] = 'success';
+}
+
+log_and_print (json_encode($result));

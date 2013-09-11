@@ -24,6 +24,10 @@ if (isset($_REQUEST['longitude']))
 {
 	$param['longitude'] = $_REQUEST['longitude'];
 }
+if (isset($_REQUEST['wifi']))
+{
+	$param['wifi'] = $_REQUEST['wifi'];
+}
 
 $dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
 
@@ -62,4 +66,3 @@ if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 
 $sql = 'INSERT INTO `log` ('.$table_name.') VALUES ('.$values.')';
 $exec = $dbh->exec($sql);
-?>
