@@ -1,13 +1,12 @@
 <?php
 // File  		:	AchieveChest.php
-// Input 		: 	group_id, file, bssid
+// Input 		: 	group_id, file, bssid, wifi
 // Created by 	:	Samuel C.
 // Created date :	31 Agustus 2013
 // Modified date:	4 September 2013
 //					5 September 2013
 
 require_once 'autoload.php';
-include ('dragon_ball_config.php');
 
 $isAmazing = AMAZING_MODE;
 
@@ -52,26 +51,25 @@ $ball_id = addslashes($_POST['chest_id']);
 $bssid = $_POST['bssid'];
 $wifi = $_POST['wifi'];
 
-if (intval($wifi) < 10)
-{
-	$result['status'] = 'failed';
-	$result['description'] = 'wifi signal too low';
-	log_and_print (json_encode($result));
-	return;
-}
-
 $dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
 
 // Retrieve Ball from DB
-$sql = 'SELECT * FROM `ball` WHERE id="'.$ball_id.'" AND bssid="'.$bssid.'"';
+$sql = 'SELECT * FROM `ball` WHERE id="'.$ball_id.'"';
 $statement = $dbh->prepare($sql);
 $statement->execute();
 $ball = $statement->fetchAll(PDO::FETCH_ASSOC);
 if (count($ball) == 0)
 {
 	$result['status'] = 'failed';
-	$result['description'] = 'invalid `chest_id` or `bssid`';
-	log_and_print (json_encode($result));
+	$result['description'] = 'invalid `chest_id`';
+	echo (json_encode($result));
+	return;
+}
+else if ($ball[0]['bssid'] != $bssid)
+{
+	$result['status'] = 'failed';
+	$result['description'] = 'invalid `bssid`';
+	echo (json_encode($result));
 	return;
 }
 else if ($isAmazing)

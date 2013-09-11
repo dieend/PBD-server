@@ -40,41 +40,6 @@ CREATE TABLE IF NOT EXISTS `ball` (
 -- Dumping data for table `ball`
 --
 
-INSERT INTO `ball` (`id`, `bssid`, `latitude`, `longitude`, `validity`) VALUES
-('1', 'amazing_race', 0, 0, 2),
-('10', 'amazing_race', 0, 0, 2),
-('11', 'amazing_race', 0, 0, 2),
-('12', 'amazing_race', 0, 0, 2),
-('13', 'amazing_race', 0, 0, 2),
-('14', 'amazing_race', 0, 0, 2),
-('15', 'amazing_race', 0, 0, 2),
-('16', 'amazing_race', 0, 0, 2),
-('17', 'amazing_race', 0, 0, 2),
-('18', 'amazing_race', 0, 0, 2),
-('19', 'amazing_race', 0, 0, 2),
-('2', 'amazing_race', 0, 0, 2),
-('20', 'amazing_race', 0, 0, 2),
-('21', 'amazing_race', 0, 0, 2),
-('3', 'amazing_race', 0, 0, 2),
-('4', 'amazing_race', 0, 0, 2),
-('5', 'amazing_race', 0, 0, 2),
-('6', 'amazing_race', 0, 0, 2),
-('7', 'amazing_race', 0, 0, 2),
-('8', 'amazing_race', 0, 0, 2),
-('9', 'amazing_race', 0, 0, 2);
-('44a87aa8e7a80b29550b7c9b63751c44', 'qwertj', -6.887796, 107.60855, 1),
-('5', 'amazing_race', 0, 0, 2),
-('6', 'amazing_race', 0, 0, 2),
-('619b0007268ec481f600b57da0bad456', 'qwerte', -6.887796, 107.60855, 1),
-('7', 'amazing_race', 0, 0, 2),
-('8', 'amazing_race', 0, 0, 2),
-('89951feae513e7dd325dcbab8e687720', 'qwertl', -6.887796, 107.60855, 1),
-('9', 'amazing_race', 0, 0, 2),
-('a67afcbff5ec51fe6671d558038b8673', 'qwertr', -6.887796, 107.60855, 1),
-('da7cba409de6224148f624ca49a0b95c', 'qwertd', -6.887796, 107.60855, 1),
-('da9ff6ac031efdcd8d35821e77b48997', 'qwertj', -6.887796, 107.60855, 1),
-('db30307ddafd40a22864fdebf39ba3a3', 'qwerti', -6.887796, 107.60855, 1);
-
 INSERT INTO `ball` (`id`, `bssid`, `latitude`, `longitude`, `validity`, `wifi_signal`) VALUES
 ('1', 'amazing_race', 0, 0, 2, 0),
 ('10', 'amazing_race', 0, 0, 2, 0),
