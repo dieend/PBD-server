@@ -51,7 +51,7 @@ for ($i = 0; $i < $count; $i++)
 }
 $exec = $dbh->exec($sql);
 
-if ($dbh->errorCode() == SQLITE_OK)
+if ($dbh->errorCode() == "0")
 {
 	$result['status'] = 'success';
 	log_and_print (json_encode($result));
