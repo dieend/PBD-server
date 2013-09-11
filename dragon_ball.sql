@@ -67,12 +67,6 @@ CREATE TABLE IF NOT EXISTS `group` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `group`
---
-
-INSERT INTO `group` (`id`, `group_name`, `achieved_ball_count`, `group_key`) VALUES
-('f9cf0876055ebd0b831a68fa0a8cc61f', 'haha', 0, '');
 
 -- --------------------------------------------------------
 
