@@ -62,14 +62,14 @@ if (count($ball) == 0)
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'invalid `chest_id`';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 else if ($ball[0]['bssid'] != $bssid)
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'invalid `bssid`';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 else if ($isAmazing)
@@ -100,14 +100,14 @@ if ($wifi < $ball[0]['wifi_signal'] - WIFI_ERROR)
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'wifi signal too weak';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 else if ($wifi > $ball[0]['wifi_signal'] + WIFI_ERROR)
 {
 	$result['status'] = 'failed';
 	$result['description'] = 'wifi signal too strong';
-	echo (json_encode($result));
+	log_and_print (json_encode($result));
 	return;
 }
 
@@ -137,7 +137,7 @@ else {
 	$direction = 'S'; 
 	$degree = abs($degree);
 }
-$latitude = $degree.'°'.$minute.'\''.$second.'"'.$direction;
+$latitude = $degree.'ï¿½'.$minute.'\''.$second.'"'.$direction;
 
 $degree = explode('/',$exif['GPSLongitude'][0]);
 $degree = $degree[0] / $degree[1];
@@ -151,7 +151,7 @@ else {
 	$direction = 'W'; 
 	$degree = abs($degree);
 }
-$longitude = $degree.'°'.$minute.'\''.$second.'"'.$direction;
+$longitude = $degree.'ï¿½'.$minute.'\''.$second.'"'.$direction;
 $sourceCoord = $latitude.', '.$longitude;
 
 // Count Distance
@@ -251,4 +251,3 @@ else
 	log_and_print (json_encode($result));
 	return;
 }
-?>
