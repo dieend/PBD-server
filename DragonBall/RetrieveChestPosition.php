@@ -102,4 +102,3 @@ for ($i = 0; $i < $count; $i++)
 $result['status'] = 'success';
 $result['data'] = $balls_converted;
 log_and_print (json_encode($result));
-?>

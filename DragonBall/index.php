@@ -26,17 +26,11 @@ switch ($_REQUEST['action']) {
 	case "retrieve":
 		include ("RetrieveChestPosition.php");
 		break;
-	case "create":
-		include ("CreateGroup.php");
-		break;
 	case "number":
 		include ("GetUnachievedChestCount.php");
 		break;
 	case "acquire":
 		include ("AchieveChest.php");
-		break;
-	case "check":
-		include ("CheckChest.php");
 		break;
 	default :
 		$result['status'] = 'failed';

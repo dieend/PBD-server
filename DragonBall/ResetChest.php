@@ -63,4 +63,3 @@ else
 	log_and_print (json_encode($result));
 	return;
 }
-?>

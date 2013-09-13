@@ -95,22 +95,6 @@ else if ($isAmazing)
 	}
 }
 
-// Check Wifi Signal
-if ($wifi < $ball[0]['wifi_signal'] - WIFI_ERROR)
-{
-	$result['status'] = 'failed';
-	$result['description'] = 'wifi signal too weak';
-	log_and_print (json_encode($result));
-	return;
-}
-else if ($wifi > $ball[0]['wifi_signal'] + WIFI_ERROR)
-{
-	$result['status'] = 'failed';
-	$result['description'] = 'wifi signal too strong';
-	log_and_print (json_encode($result));
-	return;
-}
-
 // Get Ball Coordinate
 $latitudeTarget = $ball[0]['latitude'];
 $longitudeTarget = $ball[0]['longitude'];
