@@ -137,7 +137,7 @@ else {
 	$direction = 'S'; 
 	$degree = abs($degree);
 }
-$latitude = $degree.'�'.$minute.'\''.$second.'"'.$direction;
+$latitude = $degree.'°'.$minute.'\''.$second.'"'.$direction;
 
 $degree = explode('/',$exif['GPSLongitude'][0]);
 $degree = $degree[0] / $degree[1];
@@ -151,7 +151,7 @@ else {
 	$direction = 'W'; 
 	$degree = abs($degree);
 }
-$longitude = $degree.'�'.$minute.'\''.$second.'"'.$direction;
+$longitude = $degree.'°'.$minute.'\''.$second.'"'.$direction;
 $sourceCoord = $latitude.', '.$longitude;
 
 // Count Distance
