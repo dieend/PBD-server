@@ -27,7 +27,7 @@ $group_id = addslashes($_POST['group_id']);
 
 $dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
 
-$sql = 'SELECT * FROM `group_ball` WHERE group_id="'.$group_id.'"';
+$sql = 'SELECT group_id,ball_id FROM `group_ball` WHERE group_id="'.$group_id.'"';
 $statement = $dbh->prepare($sql);
 $statement->execute();
 $group = $statement->fetchAll(PDO::FETCH_ASSOC);

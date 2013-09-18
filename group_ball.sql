@@ -23,16 +23,16 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `race_ball_achiever`
+-- Struktur dari tabel `group_ball`
 --
 
-CREATE TABLE IF NOT EXISTS `race_ball_achiever` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ball_id` varchar(32) NOT NULL,
+CREATE TABLE IF NOT EXISTS `group_ball` (
   `group_id` varchar(32) NOT NULL,
+  `ball_id` varchar(32) NOT NULL,
   `image` mediumblob NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  KEY `ball_id` (`ball_id`),
+  KEY `group_id` (`group_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

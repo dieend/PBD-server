@@ -5,6 +5,7 @@
 // Created date :	31 Agustus 2013
 // Modified date:	4 September 2013
 //					5 September 2013
+//					18 September 2013
 
 require_once 'autoload.php';
 
@@ -168,7 +169,8 @@ if ($distance < $minDist)
 			
 			if ($exec)
 			{
-				$sql = 'INSERT INTO `race_ball_achiever` (`ball_id`,`group_id`) VALUES ("'.$ball_id.'","'.$group_id.'")';
+				$image = mysql_real_escape_string(file_get_contents($_FILES['file']['tmp_name']));
+				$sql = 'INSERT INTO `race_ball_achiever` (`ball_id`,`group_id`,`image`) VALUES ("'.$ball_id.'","'.$group_id.'","'.$image.'")';
 				$exec = $dbh->exec($sql);
 
 				if ($exec)
@@ -211,13 +213,19 @@ if ($distance < $minDist)
 	}
 	else
 	{
-		$sql = 'UPDATE `ball` SET validity="0" WHERE id="'.$ball_id.'"';
+		$image = mysql_real_escape_string(file_get_contents($_FILES['file']['tmp_name']));
+		$sql = 'UPDATE `group_ball` SET image="'.$image.'" WHERE ball_id="'.$ball_id.'" AND group_id="'.$group_id .'"';		
 		$exec = $dbh->exec($sql);
 
 		if ($exec)
 		{
-			$result['status'] = 'success';
-			log_and_print (json_encode($result));
+			$sql = 'UPDATE `ball` SET validity="0" WHERE id="'.$ball_id.'"';
+			$exec = $dbh->exec($sql);
+			if ($exec)
+			{
+				$result['status'] = 'success';
+				log_and_print (json_encode($result));
+			}
 		}
 		else
 		{
