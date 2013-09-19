@@ -28,6 +28,14 @@ if (isset($_REQUEST['wifi']))
 {
 	$param['wifi'] = $_REQUEST['wifi'];
 }
+if (isset($_REQUEST['bssid']))
+{
+	$param['bssid'] = $_REQUEST['bssid'];
+}
+if (isset($_REQUEST['file']))
+{
+	$param['file'] = 'true';
+}
 
 $dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
 
