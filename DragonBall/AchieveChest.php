@@ -110,18 +110,14 @@ if (!isset($exif['GPSLatitude']) || !isset($exif['GPSLongitude']))
 	log_and_print (json_encode($result));
 	return;
 }
+
 $degree = explode('/',$exif['GPSLatitude'][0]);
 $degree = $degree[0] / $degree[1];
 $minute = explode('/',$exif['GPSLatitude'][1]);
 $minute = $minute[0] / $minute[1];
 $second = explode('/',$exif['GPSLatitude'][2]);
 $second = $second[0] / $second[1];
-if ($degree > 0) { 
-	$direction = 'N'; }
-else { 
-	$direction = 'S'; 
-	$degree = abs($degree);
-}
+$direction = $exif['GPSLatitudeRef']; 
 $latitude = $degree.'°'.$minute.'\''.$second.'"'.$direction;
 
 $degree = explode('/',$exif['GPSLongitude'][0]);
@@ -130,12 +126,7 @@ $minute = explode('/',$exif['GPSLongitude'][1]);
 $minute = $minute[0] / $minute[1];
 $second = explode('/',$exif['GPSLongitude'][2]);
 $second = $second[0] / $second[1];
-if ($degree > 0) { 
-	$direction = 'E'; }
-else { 
-	$direction = 'W'; 
-	$degree = abs($degree);
-}
+$direction = $exif['GPSLongitudeRef']; 
 $longitude = $degree.'°'.$minute.'\''.$second.'"'.$direction;
 $sourceCoord = $latitude.', '.$longitude;
 
@@ -144,6 +135,8 @@ $geotools = new \League\Geotools\Geotools();
 $coordA   = new \League\Geotools\Coordinate\Coordinate($sourceCoord);
 $coordB   = new \League\Geotools\Coordinate\Coordinate(array($latitudeTarget, $longitudeTarget));
 $distance = $geotools->distance()->setFrom($coordA)->setTo($coordB)->flat();
+
+var_dump($coordA);
 
 $minDist = VALID_MINIMUM_ACHIEVE_DISTANCE;
 if ($distance < $minDist)
@@ -217,7 +210,7 @@ if ($distance < $minDist)
 		$sql = 'UPDATE `group_ball` SET image="'.$image.'" WHERE ball_id="'.$ball_id.'" AND group_id="'.$group_id .'"';		
 		$exec = $dbh->exec($sql);
 
-		if ($exec)
+		if ($dbh->errorCode() == "0")
 		{
 			$sql = 'UPDATE `ball` SET validity="0" WHERE id="'.$ball_id.'"';
 			$exec = $dbh->exec($sql);
@@ -226,11 +219,18 @@ if ($distance < $minDist)
 				$result['status'] = 'success';
 				log_and_print (json_encode($result));
 			}
+			else
+			{
+				$result['status'] = 'failed';
+				$result['description'] = 'chest already acquired';
+				log_and_print (json_encode($result));
+				return;
+			}
 		}
 		else
 		{
 			$result['status'] = 'failed';
-			$result['description'] = 'chest already acquired';
+			$result['description'] = 'database error';
 			log_and_print (json_encode($result));
 			return;
 		}
