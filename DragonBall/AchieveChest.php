@@ -111,6 +111,15 @@ if (!isset($exif['GPSLatitude']) || !isset($exif['GPSLongitude']))
 	return;
 }
 
+if (!isset($exif['GPSLatitudeRef']) || !isset($exif['GPSLongitudeRef']))
+{
+	$result['status'] = 'failed';
+	$result['description'] = 'no geotag latitude longitude reference found';
+	log_and_print (json_encode($result));
+	return;
+}
+
+
 $degree = explode('/',$exif['GPSLatitude'][0]);
 $degree = $degree[0] / $degree[1];
 $minute = explode('/',$exif['GPSLatitude'][1]);
