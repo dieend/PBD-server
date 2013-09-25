@@ -145,7 +145,7 @@ $coordA   = new \League\Geotools\Coordinate\Coordinate($sourceCoord);
 $coordB   = new \League\Geotools\Coordinate\Coordinate(array($latitudeTarget, $longitudeTarget));
 $distance = $geotools->distance()->setFrom($coordA)->setTo($coordB)->flat();
 
-var_dump($coordA);
+
 
 $minDist = VALID_MINIMUM_ACHIEVE_DISTANCE;
 if ($distance < $minDist)
