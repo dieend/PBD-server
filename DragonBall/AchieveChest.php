@@ -102,7 +102,6 @@ $longitudeTarget = $ball[0]['longitude'];
 
 // Get Formatted Coordinate String
 $exif = exif_read_data($_FILES['file']['tmp_name']);
-
 if (!isset($exif['GPSLatitude']) || !isset($exif['GPSLongitude']))
 {
 	$result['status'] = 'failed';
@@ -145,8 +144,6 @@ $coordA   = new \League\Geotools\Coordinate\Coordinate($sourceCoord);
 $coordB   = new \League\Geotools\Coordinate\Coordinate(array($latitudeTarget, $longitudeTarget));
 $distance = $geotools->distance()->setFrom($coordA)->setTo($coordB)->flat();
 
-
-
 $minDist = VALID_MINIMUM_ACHIEVE_DISTANCE;
 if ($distance < $minDist)
 {
@@ -171,11 +168,12 @@ if ($distance < $minDist)
 			
 			if ($exec)
 			{
-				$image = mysql_real_escape_string(file_get_contents($_FILES['file']['tmp_name']));
+				$image = file_get_contents($_FILES['file']['tmp_name']);
 				$sql = 'INSERT INTO `race_ball_achiever` (`ball_id`,`group_id`,`image`) VALUES ("'.$ball_id.'","'.$group_id.'","'.$image.'")';
-				$exec = $dbh->exec($sql);
+				$stmt = $dbh->prepare($sql);
+				$stmt->execute();
 
-				if ($exec)
+				if ($dbh->errorCode() == "0")
 				{
 					$result['status'] = 'success';
 					log_and_print (json_encode($result));
@@ -215,9 +213,10 @@ if ($distance < $minDist)
 	}
 	else
 	{
-		$image = mysql_real_escape_string(file_get_contents($_FILES['file']['tmp_name']));
+		$image = file_get_contents($_FILES['file']['tmp_name']);
 		$sql = 'UPDATE `group_ball` SET image="'.$image.'" WHERE ball_id="'.$ball_id.'" AND group_id="'.$group_id .'"';		
-		$exec = $dbh->exec($sql);
+		$stmt = $dbh->prepare($sql);
+		$stmt->execute();
 
 		if ($dbh->errorCode() == "0")
 		{
