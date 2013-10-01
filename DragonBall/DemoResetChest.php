@@ -29,7 +29,6 @@ for ($i=0;$i<$count;$i++)
 	}
 }
 $sql .= ' ORDER BY group_id';
-echo($sql);
 
 // Get All Group Ball
 $statement = $dbh->prepare($sql);
@@ -78,6 +77,7 @@ for ($i = 0; $i < BALL_PER_GROUP; $i++)
 	$balls[$i]['longitude'] = $ball_info[$idx]["longitude"];
 	$balls[$i]['bssid'] = $ball_info[$idx]["bssid"];
 	$balls[$i]['wifi_signal'] = $ball_info[$idx]["wifi_signal"];
+	$balls['id'][$i] = $ball_info[$idx]["id"];
 }
 
 for ($i=0; $i < $count; $i += BALL_PER_GROUP)
@@ -98,8 +98,8 @@ for ($i=0; $i < $count; $i += BALL_PER_GROUP)
 
 if ($dbh->errorCode() == "0")
 {
-	var_dump($balls);
 	$result['status'] = 'success';
+	$result['ball_ids'] = $balls['id'];
 	echo (json_encode($result));
 }
 else
